@@ -1,15 +1,14 @@
 import signUpUser from './4-user-promise';
 import uploadPhoto from './5-photo-reject';
 
-export default function handleProfileSignup(firstName, lastName, fileName) {
-  return Promise.allSettled([
+export default async function handleProfileSignup(firstName, lastName, fileName) {
+  const values_1 = await Promise.allSettled([
     signUpUser(firstName, lastName),
     uploadPhoto(fileName),
-  ]).then((values) => {
-    const arr = [];
-    for (const item of values) {
-      arr.push({ status: item.status, value: item.value || item.reason });
-    }
-    return arr;
-  });
+  ]);
+  const arr = [];
+  for (const item of values_1) {
+    arr.push({ status: item.status, value: item.value || item.reason });
+  }
+  return arr;
 }
